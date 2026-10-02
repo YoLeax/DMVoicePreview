@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#7060d9">
+  <meta name="description" content="免登录试听豆包语音音色。按语言、场景、性别与模型筛选，收藏喜欢的声音，一键复制音色 ID。">
+  <title>DM Voice · 豆包音色试听</title>
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#voice-grid">跳到音色列表</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="./" aria-label="DM Voice 首页"><span class="brand-symbol" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>DM <strong>Voice</strong></span><span class="brand-note">豆包音色试听</span></a>
+      <nav aria-label="网站导航"><span class="free-note"><span></span>打开就能听</span><button class="text-button" id="about-button">关于音色库 <span aria-hidden="true">↗</span></button><a class="github-link" href="https://github.com/YoLeax/DMVoicePreview" target="_blank" rel="noopener noreferrer" aria-label="GitHub 项目仓库"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.55.1.76-.24.76-.54v-2.06c-3.08.67-3.73-1.3-3.73-1.3-.5-1.29-1.23-1.63-1.23-1.63-1-.69.08-.68.08-.68 1.1.08 1.68 1.14 1.68 1.14.98 1.67 2.57 1.19 3.2.91.1-.71.38-1.19.7-1.47-2.46-.28-5.05-1.23-5.05-5.48 0-1.21.43-2.2 1.14-2.98-.11-.28-.5-1.41.11-2.94 0 0 .93-.3 3.05 1.14A10.6 10.6 0 0 1 12 6.27c.94 0 1.88.13 2.76.37 2.12-1.44 3.05-1.14 3.05-1.14.61 1.53.22 2.66.11 2.94.71.78 1.14 1.77 1.14 2.98 0 4.26-2.59 5.19-5.06 5.47.4.35.75 1.02.75 2.06V22c0 .3.2.65.76.54A11.1 11.1 0 0 0 12 .9Z"/></svg></a></nav>
+    </div>
+  </header>
+
+  <div class="page-shell">
+    <section class="intro" aria-labelledby="page-title">
+      <div class="intro-copy"><div class="eyebrow"><span class="tiny-wave" aria-hidden="true">ııı</span> A VOICE FOR EVERY STORY</div><h1 id="page-title">找到你想听的<span>声音。</span></h1><p>从一句问候开始，为你的故事挑选合适的音色。</p><div class="intro-foot"><span class="intro-count"><strong id="total-count">—</strong> 个试听版本</span><span class="dot-divider">·</span><span>无需注册，即点即听</span></div></div>
+      <div class="sound-art" aria-hidden="true"><div class="sound-orbit"></div><div class="sound-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span class="sound-label">LISTEN. FIND. CREATE.</span><span class="floating-label">每一种声音，都有自己的故事</span></div>
+    </section>
+
+    <div class="library-layout">
+      <aside class="filters" id="filters" aria-labelledby="filter-title">
+        <div class="filter-heading"><h2 id="filter-title">筛选音色</h2><button id="reset-filters" class="text-button">重置</button><button class="icon-button mobile-only" id="close-filters" aria-label="关闭筛选">×</button></div>
+        <div class="filter-block"><h3>声音性别</h3><div class="segmented" id="gender-options" role="group" aria-label="声音性别"><button data-gender="" aria-pressed="true">全部</button><button data-gender="女" aria-pressed="false">女声</button><button data-gender="男" aria-pressed="false">男声</button></div></div>
+        <div class="filter-block"><label for="language-filter">语言 / 口音</label><div class="select-wrap"><select id="language-filter"><option value="">全部语言</option></select></div></div>
+        <div class="filter-block"><label for="age-filter">年龄感</label><div class="select-wrap"><select id="age-filter"><option value="">全部年龄</option></select></div></div>
+        <div class="filter-block scene-block"><h3>适用场景</h3><div id="scene-options" class="scene-options" role="group" aria-label="适用场景"></div></div>
+        <div class="filter-block"><label for="tag-filter">特色标签</label><div class="select-wrap"><select id="tag-filter"><option value="">全部标签</option></select></div></div>
+        <div class="filter-tip"><span aria-hidden="true">✧</span><p>先选场景，再听声音。<br>喜欢的音色可以收藏，慢慢比较。</p></div>
+        <button class="primary-button mobile-only filter-done" id="apply-filters">查看筛选结果</button>
+      </aside>
+      <button class="filter-scrim" id="filter-scrim" aria-label="关闭筛选面板" hidden></button>
+
+      <main id="main-content" class="library-main">
+        <div class="search-row"><div class="search-box"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="7.2"/><path d="m16 16 4.7 4.7"/></svg><label class="sr-only" for="search">搜索音色</label><input id="search" type="search" placeholder="搜索名称、音色 ID、风格…" autocomplete="off"><kbd>/</kbd></div><button id="random-button" class="random-button"><span aria-hidden="true">✧</span> 随便听听</button></div>
+        <div class="library-toolbar"><div class="tabs" id="model-tabs" role="group" aria-label="模型版本"><button data-model="" aria-pressed="true">全部音色 <span id="all-count">—</span></button><button data-model="2.0" aria-pressed="false">豆包 2.0 <span id="v2-count">—</span></button><button data-model="1.0" aria-pressed="false">豆包 1.0 <span id="v1-count">—</span></button></div><button id="favorites-button" class="favorites-toggle" aria-pressed="false"><span data-icon="heart"></span>我的收藏 <span id="favorites-count">0</span></button></div>
+        <div class="results-toolbar"><div><span id="result-count" role="status" aria-live="polite">正在整理音色…</span><button class="mobile-filter-button mobile-only" id="open-filters"><span data-icon="filter"></span>筛选<span id="filter-count"></span></button></div><label class="sort-control">排序<select id="sort"><option value="recommended">默认推荐</option><option value="name">名称 A–Z</option><option value="duration">试听时长</option></select></label></div>
+        <div class="active-filters" id="active-filters" aria-label="已选筛选条件" hidden></div>
+        <div class="voice-grid" id="voice-grid" tabindex="-1" aria-label="音色列表"><div class="loading-state"><span class="loading-ring"></span><p>让好声音就位…</p></div></div>
+        <nav class="pagination" id="pagination" aria-label="音色分页" hidden></nav>
+        <footer class="site-footer"><p>音色与试听素材来自火山引擎官方音色库 · 非官方网站</p><p><span id="update-date"></span><span class="footer-divider">/</span><a href="https://www.volcengine.com/docs/6561/1257544" target="_blank" rel="noopener noreferrer">查看官方音色文档 <span aria-hidden="true">↗</span></a></p></footer>
+      </main>
+    </div>
+  </div>
+
+  <section class="player" id="player" aria-label="试听播放器">
+    <div class="player-inner"><div class="current-voice"><div class="player-avatar" id="player-avatar"><span class="mini-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><div class="player-title"><strong id="player-name">下一句，你想听谁的声音？</strong><span id="player-meta">点击音色卡片开始试听</span></div><button id="player-favorite" class="icon-button" aria-label="收藏当前音色" aria-pressed="false" disabled><span data-icon="heart"></span></button></div><div class="transport"><button id="previous-track" class="icon-button" aria-label="上一个音色" disabled><span data-icon="previous"></span></button><button id="player-play" class="player-play" aria-label="播放" disabled><span data-icon="play"></span></button><button id="next-track" class="icon-button" aria-label="下一个音色" disabled><span data-icon="next"></span></button></div><div class="timeline"><span id="elapsed">0:00</span><input id="seek" type="range" min="0" max="100" step="0.1" value="0" aria-label="播放进度" disabled><span id="duration">0:00</span></div><div class="player-extras"><button id="continuous" class="icon-button" aria-label="连续试听" title="连续试听" aria-pressed="false"><span data-icon="repeat"></span></button><label class="sr-only" for="speed">播放速度</label><select id="speed" title="播放速度"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option></select><button id="volume-button" class="icon-button" aria-label="静音"><span data-icon="volume"></span></button><label class="sr-only" for="volume">音量</label><input id="volume" type="range" min="0" max="1" step="0.01" value="0.8"></div></div>
+    <audio id="audio" preload="none"></audio>
+  </section>
+  <dialog id="detail-dialog" aria-labelledby="detail-title"><button class="dialog-close icon-button" data-close-dialog aria-label="关闭详情">×</button><div id="detail-content"></div></dialog>
+  <dialog id="about-dialog" aria-labelledby="about-title"><button class="dialog-close icon-button" data-close-dialog aria-label="关闭说明">×</button><div class="dialog-eyebrow">ABOUT THIS LIBRARY</div><h2 id="about-title">让挑选声音简单一点。</h2><p>DM Voice 整理了火山引擎音色库的官方试听示例，方便你快速筛选和对比。无需登录，选一个声音就能试听。</p><div class="about-grid"><div><strong>收藏喜欢的音色</strong><p>收藏保存在当前浏览器，刷新后依然保留。不同设备之间不会同步。</p></div><div><strong>复制音色 ID</strong><p>卡片底部可一键复制 ID；点击名称查看详细信息，也能分享指定音色。</p></div><div><strong>关于试听版本</strong><p>部分音色有多个语言示例，因此试听记录数与独立音色 ID 数不同。标签表示音色能力，播放的是固定官方示例。</p></div><div><strong>资料与权利</strong><p>本站为非官方索引，与火山引擎、豆包无隶属关系。示例音频、头像与音色相关权利归原权利人；使用音色服务请以官方说明为准。</p></div></div><p class="about-source"><a href="https://console.volcengine.com/speech/new/voices" target="_blank" rel="noopener noreferrer">官方音色库 ↗</a><a href="https://github.com/YoLeax/DMVoicePreview" target="_blank" rel="noopener noreferrer">项目源码 ↗</a></p></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <noscript><div class="noscript">请启用 JavaScript 以使用搜索、筛选和试听功能。</div></noscript>
+</body>
+</html>
